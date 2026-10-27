@@ -6,12 +6,8 @@ WORKDIR /app
 
 RUN corepack enable
 
-COPY web/package.json ./web/package.json
-COPY web/pnpm-lock.yaml ./web/pnpm-lock.yaml
-
-RUN cd web && pnpm install --frozen-lockfile
-
 COPY web ./web
+RUN cd web && pnpm install --frozen-lockfile
 RUN pnpm --dir web build
 
 # ---------- 阶段二：编译 Go 后端 ----------
