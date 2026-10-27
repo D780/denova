@@ -19,6 +19,7 @@ FROM golang:1.26.9 AS go-builder
 WORKDIR /app
 
 COPY go.mod go.sum ./
+COPY agent ./agent
 RUN go mod download
 
 COPY . .
