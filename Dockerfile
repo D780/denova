@@ -9,12 +9,14 @@ RUN corepack enable \
 
 ENV npm_config_fetch_retries=5 \
     npm_config_fetch_retry_wait=2000 \
-    npm_config_fetch_timeout=600000
+    npm_config_fetch_timeout=600000 \
+    npm_config_network_timeout=600000 \
+    pnpm_config_fetch_retries=5 \
+    pnpm_config_fetch_retry_wait=2000 \
+    pnpm_config_fetch_timeout=600000
 
 COPY web ./web
-RUN cd web && pnpm install --frozen-lockfile --prefer-offline --network-timeout 600000 \
-    --config.fetch-retries=5 --config.fetch-retry-factor=2 \
-    --config.fetch-retry-maxtimeout=600000
+RUN cd web && pnpm install --frozen-lockfile --prefer-offline
 RUN pnpm --dir web build
 
 # ---------- 阶段二：编译 Go 后端 ----------
